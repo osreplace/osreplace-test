@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+VMNAME="$1"
+
+if [[ -z "$VMNAME" ]]; then
+  echo "Usage: $0 vmname"
+  exit 2
+fi
+
+vagrant destroy -f "$VMNAME"
+vagrant up "$VMNAME"
+vagrant snapshot save "$VMNAME" clean

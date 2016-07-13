@@ -1,0 +1,17 @@
+#!/bin/bash
+set -ex
+source "$(dirname $BASH_SOURCE)/../includes/utils.sh"
+detect_distro
+
+case "$lsb_dist" in
+
+	debian|ubuntu)
+		export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+		apt-get install -y vim debian-goodies petitboot
+	;;
+
+	*)
+		echo "Distro $lsb_dist is not tested"
+		exit 1
+	;;
+esac
