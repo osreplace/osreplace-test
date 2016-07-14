@@ -3,9 +3,11 @@ set -e
 VMNAME="$1"
 
 if [[ -z "$VMNAME" ]]; then
-  echo "Usage: $0 vmname"
+  echo "Usage: $0 vmname [test command args]"
   exit 2
 fi
 
+shift
+
 vagrant snapshot restore --no-provision "$VMNAME" clean
-vagrant ssh -c 'sudo su -lc "/vagrant/bin/test"' "$VMNAME"
+vagrant ssh -c "sudo su -lc \"/vagrant/scripts/test $@\"" "$VMNAME"

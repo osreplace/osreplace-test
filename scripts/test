@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+COMMAND="$1"
+
+if [[ -z "$COMMAND" ]]; then
+  echo "Usage: $0 command [command args]"
+  exit 2
+fi
+
+shift
+
+set -x
+
+/opt/osreplace/bin/"$COMMAND" $@
